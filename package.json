@@ -4,7 +4,6 @@
   "description": "my blog",
   "main": "index.js",
   "scripts": {
-    "dev": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -12,17 +11,14 @@
     "url": "git+https://github.com/wwmin/myBlog.git"
   },
   "keywords": [
-    "blog",
-    "express"
+    "node",
+    "express",
+    "blog"
   ],
   "author": "wwmin",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/wwmin/myBlog/issues"
   },
-  "homepage": "https://github.com/wwmin/myBlog#readme",
-  "dependencies": {
-    "ejs": "^2.5.5",
-    "express": "^4.14.0"
-  }
+  "homepage": "https://github.com/wwmin/myBlog#readme"
 }
