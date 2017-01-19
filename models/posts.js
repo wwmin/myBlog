@@ -22,6 +22,7 @@ Post.plugin('addCommentsCount', {
     return post;
   }
 });
+
 // 将 post 的 content 从 markdown 转换成 html
 Post.plugin('contentToHtml', {
   afterFind: function (posts) {
@@ -47,9 +48,10 @@ module.exports = {
   // 通过文章 id 获取一篇文章
   getPostById: function getPostById(postId) {
     return Post
-      .findOne({_id: postId})
-      .populate({path: 'author', model: 'User'})
+      .findOne({ _id: postId })
+      .populate({ path: 'author', model: 'User' })
       .addCreatedAt()
+      .addCommentsCount()
       .contentToHtml()
       .exec();
   },
@@ -62,9 +64,10 @@ module.exports = {
     }
     return Post
       .find(query)
-      .populate({path: 'author', model: 'User'})
-      .sort({_id: -1})
+      .populate({ path: 'author', model: 'User' })
+      .sort({ _id: -1 })
       .addCreatedAt()
+      .addCommentsCount()
       .contentToHtml()
       .exec();
   },
@@ -72,23 +75,24 @@ module.exports = {
   // 通过文章 id 给 pv 加 1
   incPv: function incPv(postId) {
     return Post
-      .update({_id: postId}, {$inc: {pv: 1}})
+      .update({ _id: postId }, { $inc: { pv: 1 } })
       .exec();
   },
+
   // 通过文章 id 获取一篇原生文章（编辑文章）
   getRawPostById: function getRawPostById(postId) {
     return Post
-      .findOne({_id: postId})
-      .populate({path: 'author', model: 'User'})
+      .findOne({ _id: postId })
+      .populate({ path: 'author', model: 'User' })
       .exec();
   },
 
-// 通过用户 id 和文章 id 更新一篇文章
+  // 通过用户 id 和文章 id 更新一篇文章
   updatePostById: function updatePostById(postId, author, data) {
-    return Post.update({author: author, _id: postId}, {$set: data}).exec();
+    return Post.update({ author: author, _id: postId }, { $set: data }).exec();
   },
 
-// 通过用户 id 和文章 id 删除一篇文章
+  // 通过用户 id 和文章 id 删除一篇文章
   delPostById: function delPostById(postId, author) {
     return Post.remove({ author: author, _id: postId })
       .exec()

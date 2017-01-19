@@ -18,11 +18,11 @@ describe('signup', function() {
         gender: 'x',
         bio: ''
       })
-        .exec()
-        .then(function () {
-          done();
-        })
-        .catch(done);
+      .exec()
+      .then(function () {
+        done();
+      })
+      .catch(done);
     });
 
     afterEach(function (done) {
